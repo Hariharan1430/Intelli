@@ -1,0 +1,195 @@
+/* .container {
+    padding: 30px;
+  }
+  
+  .headerBox {
+    margin-bottom: 40px;
+  }
+  
+  .headerText {
+    color: var(--Primary-TEXT-100, #2A4343);
+  font-family: Inter;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+    margin-bottom: 7px;
+  }
+  
+  .subHeaderText {
+    margin-bottom: 20px;
+  }
+  .selectboxtext{
+    color: #C5C5C5;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  margin-top: 10px;
+  }
+  .filters input,
+  .filters select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+  }
+  
+  .inputBox {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .selectBox {
+    width: 100%;
+    padding: 10px;
+    height: 37px;
+  }
+  
+  .sentimentsBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+  }
+  
+  .sentiments .MuiBox-root {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .iconBox {
+    display: flex;
+    height: 200px;
+    border: 1.2px solid var(--Primary-TEXT-70, #D3E7EC)
+  
+  }
+  
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+  }
+  
+  .positiveIcon {
+    margin:20px
+  }
+  
+  .negativeIcon {
+    margin:20px
+  }
+  
+  .mentionsIcon {
+    margin:20px
+  }
+  
+  .numberText { 
+    margin: 30px 10px 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .labelText {
+    font-size: 1rem;
+    margin-bottom: 50px;
+  }
+  .indiaMap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .innerimagestyle{
+    padding: 30px;
+    border: 1px solid var(--Primary-TEXT-70, #D3E7EC);
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  
+  
+  
+   
+   
+  
+  .gridItem {
+    text-align: center;
+  }
+  
+  .header {
+    color: var(--Primary-TEXT-100, #2A4343);
+  text-align: center;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  background: linear-gradient(0deg, rgba(211, 231, 236, 0.20) 0%, rgba(211, 231, 236, 0.20) 100%), var(--White, #FFF);
+    padding: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border: 1.2px solid var(--Primary-TEXT-70, #D3E7EC)
+    
+   
+  
+  }
+  
+  .number {
+    color: var(--Primary-TEXT-100, #2A4343);
+    text-align: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+  padding: 16px;
+  border-bottom: 2px solid var(--Primary-TEXT-70, #D3E7EC);
+  }
+  
+  .iconPositive {
+    color: green;
+    margin-left: 8px;
+  }
+  
+  .iconNegative {
+    color: red;
+    margin-left: 8px;
+  }
+  .selectedstate{
+    color: var(--Grey-70, #B2B2B2);
+    margin-bottom: 15px;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  }
+  .state1{
+    color: var(--Primary-TEXT-100, #2A4343);
+   margin-bottom: 15px;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; 
+  }
+  
+  .Karnataka{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    margin-top: 40px;
+  }
+  .maptext{
+    color: var(--Grey-70, #B2B2B2);
+  font-family: Inter;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 10px;
+  } */

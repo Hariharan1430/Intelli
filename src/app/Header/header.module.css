@@ -1,0 +1,93 @@
+/* Header styles */
+.searchBar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #c4c4c4;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 600px;
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.searchIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.inputBase {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #424141;
+  font-size: 16px;
+}
+
+.placeholderText::placeholder { 
+  color: #a9a9a9;
+}
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  height: 30px;
+  width: 1px;
+  background-color: #c4c4c4;
+  margin: 0 10px;
+}
+
+.userName {
+  font-weight: bold;
+  color: #424141;
+}
+
+.formContainer {
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.heading {
+  margin-bottom: 0.5rem;
+  color: #2a4343;
+}
+
+.subheading {
+  margin-bottom: 1rem;
+  color: #2a4343;
+}
+
+.input {
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.helperText {
+  margin-bottom: 1rem;
+  color: #a9a9a9;
+}
+
+.submitButton {
+  background-color: #7f989a;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  text-transform: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #7f989a;
+}

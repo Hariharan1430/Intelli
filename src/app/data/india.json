@@ -1,0 +1,22 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "Karnataka" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [74.0, 15.0],
+              [75.0, 15.0],
+              [75.0, 16.0],
+              [74.0, 16.0],
+              [74.0, 15.0]
+            ]
+          ]
+        }
+      }
+    ]
+  }
+  
