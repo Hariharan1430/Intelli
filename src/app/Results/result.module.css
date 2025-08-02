@@ -53,6 +53,20 @@
   }
 
 
+.statBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: transparent;
+}
+
+.statBox:hover::before {
+  opacity: 1;
+}
+.select:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 
 
 .filterBox {

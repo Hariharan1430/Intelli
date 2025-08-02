@@ -1,29 +1,31 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Box, Grid, Typography, Button, TableContainer, Table, TableHead, TableRow,
-  TableCell, TableBody, IconButton, Tooltip, TextField
+  TableCell, TableBody, IconButton, Tooltip
 } from '@mui/material';
 import Head from 'next/head';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useKeywordContext } from '../Component/page';
 
-const BACKEND_URL = 'http://192.168.1.11:8000';
+const BACKEND_URL = 'http://192.168.1.15:8000';
 
 const KeywordDashboard = () => {
-  const [keywords, setKeywords] = useState([
+  const [keywords, setKeywords] = React.useState([
     { name: 'Yamaha India', mentions: 100, score: 87, created: '2024-05-14' },
     { name: 'Lenovo', mentions: 80, score: 77, created: '2024-05-16' },
-    { name: 'Modi', mentions: 90, score: 88, created: '2024-05-18' },
-    { name: 'Rahul Gandhi', mentions: 78, score: 67, created: '2024-05-20' },
-    { name: 'India 2024', mentions: 55, score: 50, created: '2024-05-25' },
   ]);
 
-  const [showInput, setShowInput] = useState(false);
-  const [newKeyword, setNewKeyword] = useState('');
+  const {
+    setShowForm,
+    keywordInput,
+    setKeywordInput,
+    setSubmitKeyword,
+  } = useKeywordContext();
 
   const handleAddKeyword = async () => {
-    const cleanedKeyword = newKeyword.trim();
+    const cleanedKeyword = keywordInput.trim();
     if (!cleanedKeyword) {
       alert('Please enter a valid keyword');
       return;
@@ -33,53 +35,52 @@ const KeywordDashboard = () => {
       const url = `${BACKEND_URL}/api/keyword-sentiment/sentiment/?keyword=${encodeURIComponent(cleanedKeyword)}&range_type=weekly`;
       const response = await fetch(url);
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-
+      if (!response.ok) throw new Error(`Server error: ${response.status}`);
       const text = await response.text();
-      console.log('Raw response:', text);
 
       let data;
       try {
         data = JSON.parse(text);
       } catch (err) {
-        console.error('Error parsing response as JSON:', err);
         alert('Server returned invalid data.');
         return;
       }
 
       const today = new Date();
-      const createdDate = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+      const createdDate = `${today.getFullYear()}-${(today.getMonth() + 1)
+                    .toString()
+          .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
-      const score = Math.round((data.average_score || 0) * 100); // 0 to 100 scale
-      const score1=data.total_matches;
+      const score = Math.round((data.avg_positive_score || 0) * 100);
+      const mentions = data.match_count;
 
       const newEntry = {
         name: data.keyword || cleanedKeyword,
-        mentions: score1, // as per your request
-        score: score,
-        created: createdDate
+        mentions,
+        score,
+        created: createdDate,
       };
 
-      setKeywords(prev => [...prev, newEntry]);
-      setNewKeyword('');
-      setShowInput(false);
+      setKeywords((prev) => [...prev, newEntry]);
+      setKeywordInput('');
+      setShowForm(false);
     } catch (err) {
-      console.error('Network or API error:', err);
+      console.error(err);
       alert('Failed to fetch keyword data from server.');
     }
   };
+
+  useEffect(() => {
+    setSubmitKeyword(() => handleAddKeyword);
+  }, [keywordInput]);
 
   return (
     <Box sx={{ padding: '20px' }}>
       <Head>
         <title>Keyword Dashboard</title>
-        <meta name="description" content="Keyword management dashboard" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Typography sx={{ fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter', color: '#333', fontSize: '28px' }}>
+      <Typography sx={{ fontWeight: '600', marginBottom: '8px', fontSize: '28px' }}>
         Keywords
       </Typography>
       <Typography variant="subtitle1" sx={{ color: 'gray', marginBottom: '16px' }}>
@@ -88,26 +89,13 @@ const KeywordDashboard = () => {
 
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ textAlign: 'right' }}>
-          {!showInput ? (
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: '#4caf50', marginBottom: '20px' }}
-              onClick={() => setShowInput(true)}
-            >
-              + Create new keyword
-            </Button>
-          ) : (
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', marginBottom: '20px' }}>
-              <TextField
-                label="Enter keyword"
-                value={newKeyword}
-                onChange={(e) => setNewKeyword(e.target.value)}
-                size="small"
-              />
-              <Button variant="contained" onClick={handleAddKeyword}>Submit</Button>
-              <Button variant="outlined" onClick={() => { setShowInput(false); setNewKeyword(''); }}>Cancel</Button>
-            </Box>
-          )}
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: '#4caf50', marginBottom: '20px' }}
+            onClick={() => setShowForm(true)}
+          >
+            + Create new keyword
+          </Button>
         </Grid>
 
         <Grid item xs={12}>
@@ -115,14 +103,14 @@ const KeywordDashboard = () => {
             <Table>
               <TableHead sx={{ backgroundColor: '#D3E7EC' }}>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: '600', color: '#333', borderTopLeftRadius: '8px', borderBottom: 'none' }}>KEYWORD NAME</TableCell>
-                  <TableCell sx={{ fontWeight: '600', color: '#333', borderBottom: 'none' }} align="center">NEW MENTIONS</TableCell>
-                  <TableCell sx={{ fontWeight: '600', color: '#333', borderBottom: 'none' }} align="center">CURRENT SCORE</TableCell>
-                  <TableCell sx={{ fontWeight: '600', color: '#333', borderBottom: 'none' }} align="center">CREATED</TableCell>
-                  <TableCell sx={{ fontWeight: '600', color: '#333', borderTopRightRadius: '8px', borderBottom: 'none' }} align="center">KEYWORD SETTINGS</TableCell>
+                  <TableCell sx={{ fontWeight: '600' }}>KEYWORD NAME</TableCell>
+                  <TableCell sx={{ fontWeight: '600' }} align="center">NEW MENTIONS</TableCell>
+                  <TableCell sx={{ fontWeight: '600' }} align="center">CURRENT SCORE</TableCell>
+                  <TableCell sx={{ fontWeight: '600' }} align="center">CREATED</TableCell>
+                  <TableCell sx={{ fontWeight: '600' }} align="center">KEYWORD SETTINGS</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+               <TableBody>
                 {keywords.map((keyword, index) => (
                   <TableRow key={index}>
                     <TableCell sx={{ fontWeight: '600', color: '#333' }} align="left">{keyword.name}</TableCell>

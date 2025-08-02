@@ -4,7 +4,7 @@ import './globals.css';
 import Leftnav from '../app/Leftnav/page';
 import Header from '../app/Header/page';
 import { Box } from '@mui/material';
-
+import { KeywordProvider } from '../app/Component/page'; // <-- ✅ IMPORT THE PROVIDER
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,19 +17,16 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-      
-    
-      <Box display="flex">
-      <Leftnav />
-      <Box flexGrow={1}>
-        <Header />
-       
-
-        <main>{children}</main>
-        </Box>
-        </Box>
+        <KeywordProvider> {/* ✅ Wrap your entire layout */}
+          <Box display="flex">
+            <Leftnav />
+            <Box flexGrow={1}>
+              <Header />
+              <main>{children}</main>
+            </Box>
+          </Box>
+        </KeywordProvider>
       </body>
-     
     </html>
   );
 };
