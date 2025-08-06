@@ -302,35 +302,242 @@
   color: #2563eb;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Small Desktop & Large Laptop (1440px to 1200px) */
+
+/* Medium Desktop & Laptop (1200px to 1000px) */
+@media (max-width: 1500px) {
+  .container {
+    padding: 22px;
+  }
+  
+  .headingBox {
+    margin-bottom: 22px;
+  }
+  
+  .mainHeading {
+    font-size: 22px !important;
+  }
+  
+  .tableContainer {
+    margin-bottom: 22px;
+    border-radius: 12px !important;
+    box-shadow: 15px 6px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .tableHeaderCell {
+    font-size: 14px !important;
+    padding: 16px !important;
+  }
+  
+  .tableBodyCell {
+    padding: 12px !important;
+  }
+  
+  .buttonGroup {
+    gap: 8px;
+  }
+  
+  .selectionButton {
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 10px !important;
+  }
+  
+  .submitButtonWrapper {
+    margin-bottom: 10px;
+  }
+  
+  .submitButton {
+    padding: 10px 26px !important;
+    font-size: 8px !important;
+    border-radius: 24px !important;
+  }
+  
+  .iconBox {
+    margin-top: 20px;
+  }
+  
+  .statBox {
+    padding: 22px 16px;
+    border-radius: 16px;
+    height: 160px;
+  }
+  
+  .iconWrapper {
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .iconmarginbox {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  
+  .statTitle {
+    font-size: 14px !important;
+    margin: 3px 6px 10px 6px !important;
+  }
+  
+  .statValue {
+    font-size: 30px !important;
+  }
+}
+
+/* Small Laptop (1000px to 768px) */
+@media (max-width: 1000px) {
   .container {
     padding: 20px;
+  }
+  
+  .headingBox {
+    margin-bottom: 20px;
   }
   
   .mainHeading {
     font-size: 24px !important;
   }
   
+  .tableContainer {
+    margin-bottom: 20px;
+    border-radius: 10px !important;
+    box-shadow: 12px 5px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .tableHeaderCell {
+    font-size: 14px !important;
+    padding: 14px !important;
+  }
+  
+  .tableBodyCell {
+    padding: 14px !important;
+  }
+  
   .buttonGroup {
-    justify-content: center;
+    gap: 6px;
+  }
+  
+  .selectionButton {
+    padding: 7px 14px !important;
+    border-radius: 18px !important;
+    font-size: 12px !important;
+  }
+  
+  .submitButtonWrapper {
+    margin-bottom: 25px;
+  }
+  
+  .submitButton {
+    padding: 9px 24px !important;
+    font-size: 13px !important;
+    border-radius: 22px !important;
+  }
+  
+  .iconBox {
+    margin-top: 25px;
   }
   
   .statBox {
-    height: 180px;
-    padding: 20px 15px;
+    padding: 20px 14px;
+    border-radius: 14px;
+    height: 160px;
+  }
+  
+  .iconWrapper {
+    padding: 7px;
+    margin-bottom: 8px;
   }
   
   .iconmarginbox {
-    width: 36px !important;
-    height: 36px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  .statTitle {
+    font-size: 14px !important;
+    margin: 3px 5px 8px 5px !important;
   }
   
   .statValue {
     font-size: 28px !important;
   }
+}
+
+/* Mobile Devices (768px and below) */
+@media (max-width: 768px) {
+  .container {
+    padding: 18px;
+  }
+  
+  .headingBox {
+    margin-bottom: 18px;
+  }
+  
+  .mainHeading {
+    font-size: 22px !important;
+  }
+  
+  .tableContainer {
+    margin-bottom: 18px;
+    border-radius: 8px !important;
+    box-shadow: 8px 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .tableHeaderCell {
+    font-size: 13px !important;
+    padding: 12px !important;
+  }
+  
+  .tableBodyCell {
+    padding: 12px !important;
+  }
+  
+  .buttonGroup {
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .selectionButton {
+    padding: 6px 12px !important;
+    border-radius: 16px !important;
+    font-size: 11px !important;
+  }
+  
+  .submitButtonWrapper {
+    margin-bottom: 20px;
+  }
+  
+  .submitButton {
+    padding: 8px 20px !important;
+    font-size: 12px !important;
+    border-radius: 20px !important;
+  }
+  
+  .iconBox {
+    margin-top: 20px;
+  }
+  
+  .statBox {
+    height: 140px;
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+  
+  .iconWrapper {
+    padding: 6px;
+    margin-bottom: 6px;
+  }
+  
+  .iconmarginbox {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  
+  .statValue {
+    font-size: 24px !important;
+  }
   
   .statTitle {
     font-size: 12px !important;
+    margin: 2px 4px 6px 4px !important;
   }
 }

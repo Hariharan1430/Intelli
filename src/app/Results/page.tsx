@@ -28,7 +28,7 @@ type KeywordItem = { id: number; name: string };
 const GraphDashboard: React.FC = () => {
   const [keywordList, setKeywordList] = useState<KeywordItem[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState('');
-  const [selectedRange, setSelectedRange] = useState('weekly');
+  const [selectedRange, setSelectedRange] = useState('daily');
 
   const [positive, setPositive] = useState('Nil');
   const [negative, setNegative] = useState('Nil');
