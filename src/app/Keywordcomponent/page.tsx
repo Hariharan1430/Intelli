@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useKeywordContext } from '../Component/page';
 
-const BACKEND_URL = 'http://192.168.1.15:8000';
+const BACKEND_URL = 'http://192.168.1.19:8888';
 
 const KeywordDashboard = () => {
   const [keywords, setKeywords] = React.useState([

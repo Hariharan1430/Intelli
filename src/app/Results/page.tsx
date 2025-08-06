@@ -1,47 +1,41 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import {
-  Grid,
   Box,
-  Select,
-  MenuItem,
   Typography,
+  Grid,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from '@mui/material';
 import Image from 'next/image';
 import styles from './result.module.css';
+
 import smile1 from '../../../public/icon/smiley positive.svg';
 import smile2 from '../../../public/icon/smiley Negative.svg';
 import smile3 from '../../../public/icon/smiley Neutral.svg';
 import reportboxicon4 from '../../../public/icon/mentions.svg';
-import { useKeywordContext } from '../Component/page';
-import Piechartgrapg from '../Sentimentpiechart/page';
-import Lastbox from '../Twochartbox/page';
 
-const BACKEND_URL = 'http://192.168.1.15:8000';
+const BACKEND_URL = 'http://192.168.1.19:8888';
 
 type KeywordItem = { id: number; name: string };
 
 const GraphDashboard: React.FC = () => {
-  const {
-    keywordInput,
-    setSubmitKeyword,
-    setShowForm,
-  } = useKeywordContext();
-
   const [keywordList, setKeywordList] = useState<KeywordItem[]>([]);
-
   const [selectedKeyword, setSelectedKeyword] = useState('');
   const [selectedRange, setSelectedRange] = useState('weekly');
-  const [selectedCategory] = useState('Tamilnadu'); // Fixed category
 
   const [positive, setPositive] = useState('Nil');
   const [negative, setNegative] = useState('Nil');
   const [neutral, setNeutral] = useState('Nil');
   const [mentions, setMentions] = useState('Nil');
-  const [chartData, setChartData] = useState([]);
 
-  // Populate keyword dropdown
+  // Fetch keyword list
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/keywords/`)
       .then((res) => res.json())
@@ -49,25 +43,12 @@ const GraphDashboard: React.FC = () => {
       .catch((err) => console.error('Failed to fetch keywords:', err));
   }, []);
 
-  // Connect search bar to dropdown (do NOT fetch yet)
-  useEffect(() => {
-    setSubmitKeyword(() => {
-      return () => {
-        if (keywordInput.trim()) {
-          setSelectedKeyword(keywordInput);
-          setShowForm(false);
-        }
-      };
-    });
-  }, [keywordInput, setSubmitKeyword, setShowForm]);
-
-  // Fetch sentiment data only when submit button is clicked
   const handleSubmit = async () => {
-    if (!selectedKeyword || !selectedRange || !selectedCategory) return;
+    if (!selectedKeyword || !selectedRange) return;
 
     const url = `${BACKEND_URL}/api/keyword-sentiment/sentiment/?keyword=${encodeURIComponent(
       selectedKeyword
-    )}&range_type=${selectedRange}&category=${encodeURIComponent(selectedCategory)}`;
+    )}&range_type=${selectedRange}&category=Tamilnadu`;
 
     try {
       const res = await fetch(url);
@@ -78,108 +59,136 @@ const GraphDashboard: React.FC = () => {
       setNegative(data.avg_negative_score !== undefined ? `${Math.round(data.avg_negative_score * 100)}%` : 'Nil');
       setNeutral(data.avg_neutral_score !== undefined ? `${Math.round(data.avg_neutral_score * 100)}%` : 'Nil');
       setMentions(data.match_count || 'Nil');
-      setChartData(data.chart || []);
     } catch (err) {
       console.error('Failed to fetch sentiment:', err);
       setPositive('Nil');
       setNegative('Nil');
       setNeutral('Nil');
       setMentions('Nil');
-      setChartData([]);
     }
   };
+
+  const ranges = ['daily', 'weekly', 'monthly'];
 
   return (
     <Box className={styles.container}>
       <Box className={styles.headingBox}>
-        <Typography sx={{ fontSize: '28px', fontWeight: '600', fontFamily: 'Inter', color: '#333' }}>
-          Results for {selectedKeyword || 'Keyword'}
+        <Typography variant="h1" className={styles.mainHeading}>
+          Results for <span className={styles.keywordHighlight}>{selectedKeyword || 'Keyword'}</span>
         </Typography>
       </Box>
 
-      {/* Filters */}
-      <Grid item xs={12}>
-        <Box className={styles.filterBox}>
-          {/* Dropdown 1: Keywords */}
-          <Select
-            value={selectedKeyword}
-            onChange={(e) => setSelectedKeyword(e.target.value)}
-            className={styles.select}
-            displayEmpty
-          >
-            <MenuItem value="">Keyword</MenuItem>
-            {keywordList.map((item) => (
-              <MenuItem key={item.id} value={item.name}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
+      {/* Enhanced Keyword and Range Table */}
+      <TableContainer component={Paper} className={styles.tableContainer}>
+        <Table aria-label="keyword and range selection" className={styles.selectionTable}>
+          <TableHead>
+            <TableRow className={styles.tableHeaderRow}>
+              <TableCell align="left" className={styles.tableHeaderCell}>
+                <strong>Select Keyword</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell className={styles.tableBodyCell}>
+                <Box className={styles.buttonGroup}>
+                  {keywordList.map((keyword) => (
+                    <Button
+                      key={keyword.id}
+                      className={`${styles.selectionButton} ${styles.keywordButton} ${
+                        selectedKeyword === keyword.name ? styles.selectedKeyword : ''
+                      }`}
+                      onClick={() => setSelectedKeyword(keyword.name)}
+                    >
+                      {keyword.name}
+                    </Button>
+                  ))}
+                </Box>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="left" className={styles.tableHeaderCell}>
+                <strong>Select Time Range</strong>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className={styles.tableBodyCell}>
+                <Box className={styles.buttonGroup}>
+                  {ranges.map((range) => (
+                    <Button
+                      key={range}
+                      className={`${styles.selectionButton} ${styles.rangeButton} ${
+                        selectedRange === range ? styles.selectedRange : ''
+                      }`}
+                      onClick={() => setSelectedRange(range)}
+                    >
+                      {range.charAt(0).toUpperCase() + range.slice(1)}
+                    </Button>
+                  ))}
+                </Box>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-          {/* Dropdown 2: Range */}
-          <Select
-            value={selectedRange}
-            onChange={(e) => setSelectedRange(e.target.value)}
-            className={styles.select}
-          >
-            <MenuItem value="daily">Daily</MenuItem>
-            <MenuItem value="weekly">Weekly</MenuItem>
-            <MenuItem value="monthly">Monthly</MenuItem>
-          </Select>
+      <Box className={styles.submitButtonWrapper}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          className={styles.submitButton}
+          disabled={!selectedKeyword || !selectedRange}
+        >
+          Analyze Sentiment
+        </Button>
+      </Box>
 
-          {/* Dropdown 3: Category (Fixed) */}
-          <Select value="Tamilnadu" className={styles.select} disabled>
-            <MenuItem value="Tamilnadu">Tamil Nadu</MenuItem>
-          </Select>
-
-          {/* Submit Button */}
-          <Button
-            variant="contained"
-            color="primary"
-            className={styles.submitButton}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Box>
-      </Grid>
-
-      {/* Stats */}
+      {/* Enhanced Sentiment Result Boxes */}
       <Box className={styles.iconBox}>
-        <Grid container spacing={2}>
-          <Grid item xs={2.4}>
-            <Box className={styles.statBox}>
-              <Image src={smile1} alt="Positive" className={styles.iconmarginbox} />
-              <Typography>Positive Reach</Typography>
-              <Typography>{positive}</Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className={`${styles.statBox} ${styles.positive}`}>
+                            <Typography className={styles.statValue}>{positive}</Typography>
+                              <Typography className={styles.statTitle}>Positive Reach</Typography>
+
+              <Box className={styles.iconWrapper}>
+                <Image src={smile1} alt="Positive" className={styles.iconmarginbox} />
+              </Box>
             </Box>
           </Grid>
-          <Grid item xs={2.4}>
-            <Box className={styles.statBox}>
-              <Image src={smile2} alt="Negative" className={styles.iconmarginbox} />
-              <Typography>Negative Reach</Typography>
-              <Typography>{negative}</Typography>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className={`${styles.statBox} ${styles.negative}`}>
+                            <Typography className={styles.statValue}>{negative}</Typography>
+                                    <Typography className={styles.statTitle}>Negative Reach</Typography>
+
+              <Box className={styles.iconWrapper}>
+                <Image src={smile1} alt="Negative" className={styles.iconmarginbox} />
+              </Box>
             </Box>
           </Grid>
-          <Grid item xs={2.4}>
-            <Box className={styles.statBox}>
-              <Image src={smile3} alt="Neutral" className={styles.iconmarginbox} />
-              <Typography>Neutral Reach</Typography>
-              <Typography>{neutral}</Typography>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className={`${styles.statBox} ${styles.neutral}`}>
+               <Typography className={styles.statValue}>{neutral}</Typography>
+
+              <Typography className={styles.statTitle}>Neutral Reach</Typography>
+              <Box className={styles.iconWrapper}>
+                <Image src={smile1} alt="Neutral" className={styles.iconmarginbox} />
+              </Box>
             </Box>
           </Grid>
-          <Grid item xs={2.4}>
-            <Box className={styles.statBox}>
-              <Image src={reportboxicon4} alt="Mentions" className={styles.iconmarginbox} />
-              <Typography>Mentions</Typography>
-              <Typography>{mentions}</Typography>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className={`${styles.statBox} ${styles.mentions}`}>
+                            <Typography className={styles.statValue}>{mentions}</Typography>
+                                      <Typography className={styles.statTitle}>Total Mentions</Typography>
+
+              <Box className={styles.iconWrapper}>
+                <Image src={reportboxicon4} alt="Mentions" className={styles.iconmarginbox} />
+              </Box>
             </Box>
           </Grid>
         </Grid>
       </Box>
-
-      {/* Charts */}
-      {/* Add Piechart or other components here */}
-      
     </Box>
   );
 };
