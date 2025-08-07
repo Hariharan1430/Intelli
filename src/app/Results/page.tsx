@@ -68,7 +68,7 @@ const GraphDashboard: React.FC = () => {
     }
   };
 
-  const ranges = ['daily', 'weekly', 'monthly'];
+  const ranges = ['15 minutes','30 minutes','1hour','daily', 'weekly', 'monthly'];
 
   return (
     <Box className={styles.container}>
