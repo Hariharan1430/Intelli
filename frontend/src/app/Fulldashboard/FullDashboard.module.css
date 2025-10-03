@@ -1,0 +1,78 @@
+
+
+ .container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+}
+
+.mentionsReachContainer {
+  overflow: hidden;
+}
+
+
+.mentionsBox, .reachBox {
+  background: #F3F8FB; 
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.graphBox {
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  border: 1px solid #e0e0e0;
+
+}
+
+.graph {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.mentionsTitle, .reachTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333; 
+}
+
+.mentionsValue, .reachValue {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333; 
+}
+
+@media (min-width: 1280px) {
+  .mentionsReachContainer {
+    flex-direction: row;
+  }
+
+  .mentionsBox, .reachBox {
+    margin-bottom: 0;
+  }
+
+  .mentionsBox {
+    margin-right: 16px;
+    margin-bottom: 20px;
+  }
+
+  .reachBox {
+    margin-right: 16px;
+  }
+}
